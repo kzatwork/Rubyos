@@ -11,7 +11,7 @@ class TCB {
 
   }
 
-  delete() {
+  destructor delete() {
 
   }
 
@@ -24,6 +24,18 @@ class Que {
   int prev;
   int next;
   TCB* tcb;
+
+  constructor new() {
+    prev = 0;
+    next = 0;
+    tcb = TCB.new();
+  }
+
+  destructor delete() {
+    prev = 0;
+    next = 0;
+    tcb.delete();
+  }
 
   int prev {
     return prev; 
