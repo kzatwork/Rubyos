@@ -1,27 +1,53 @@
 #include <iostream>
+#include <queue>
+#include <stdlib.h>
 using namespace std;
 
 // Task control block
 class TCB {
 
 private:
-  int status;
-  int flag;
-  int priority;
+  int tcb_status;
+  int tcb_flag;
+  int tcb_priority;
+  string task_name;
 
 public:
   TCB() {
-    status = 0;
-    flag = 0;
-    priority = 0;
-    cout << "TCB Constructed!" << endl; 
+    tcb_status = 0;
+    tcb_flag = 0;
+    tcb_priority = 0;
+    cout << "TCB() Constructed!" << endl; 
+  }
+
+  TCB(int status = 0, int flag =0, int priority =0, string name ="") {
+    tcb_status = status;
+    tcb_flag = flag;
+    tcb_priority = priority;
+    task_name = name;
+    cout << "TCB(x) Constructed!" << endl; 
   }
 
   ~TCB() {
     cout << "TCB Destructed!" << endl;
   }
 
+  int priority() const {
+    return tcb_priority;
+  }
+
+  string name() const {
+    return task_name;
+  }
 };
+
+bool operator < (const TCB& a, const TCB& b) {
+  return a.priority() < b.priority();
+}
+
+ostream& operator << ( ostream& os, const TCB& tcb){
+  return os << tcb.priority() << " " << tcb.name() << endl;
+}
 
 
 // Que control block
@@ -37,7 +63,7 @@ public:
   Que() {
     prev_node = 0;
     next_node = 0;
-    tcb = new TCB;
+    tcb = new TCB(0, 0, rand()%10, "Who");
     cout << "Que Constructed!" << endl;
   }
 
@@ -57,8 +83,8 @@ public:
 };
 
 int main() {
-
   Que que; 
   return 0;
 }
+
 
