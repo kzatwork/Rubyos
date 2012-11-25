@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <queue>
 #include <stdlib.h>
 using namespace std;
@@ -13,12 +15,12 @@ private:
   string task_name;
 
 public:
-  TCB() {
-    tcb_status = 0;
-    tcb_flag = 0;
-    tcb_priority = 0;
-    cout << "TCB() Constructed!" << endl; 
-  }
+//  TCB() {
+//    tcb_status = 0;
+//    tcb_flag = 0;
+//    tcb_priority = 0;
+//    cout << "TCB() Constructed!" << endl; 
+//  }
 
   TCB(int status = 0, int flag =0, int priority =0, string name ="") {
     tcb_status = status;
@@ -46,7 +48,7 @@ bool operator < (const TCB& a, const TCB& b) {
 }
 
 ostream& operator << ( ostream& os, const TCB& tcb){
-  return os << tcb.priority() << " " << tcb.name() << endl;
+  return os << "Pri:" << tcb.priority() << " Name:" << tcb.name() << endl;
 }
 
 
@@ -83,8 +85,22 @@ public:
 };
 
 int main() {
-  Que que; 
+//  Que que; 
+
+  priority_queue <TCB, vector<TCB>, less<TCB> > pq;
+
+  ostringstream ss;
+  for(int i=0; i< 10; i++){
+    ss << "No.:" << i;
+    pq.push(TCB(i, i, rand()%10, ss.str()));
+    ss.str("");
+    ss.clear(stringstream::goodbit);
+  }
+  while(!pq.empty()){
+    cout << pq.top();
+    pq.pop();
+  }
+  cout << endl;
   return 0;
 }
-
 
